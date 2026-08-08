@@ -6,14 +6,6 @@ import { useState } from "react";
 import { FiCode, FiGlobe, FiSun } from "react-icons/fi";
 import { translations } from "@/lib/translations";
 
-const navLinks = [
-  { href: "/", label: translations.UZ.nav.home },
-  { href: "/blog", label: translations.UZ.nav.blog },
-  { href: "/projects", label: translations.UZ.nav.projects },
-  { href: "/about", label: translations.UZ.nav.about },
-  { href: "/contact", label: translations.UZ.nav.contact },
-];
-
 export default function Navbar() {
   const pathname = usePathname();
   const [lang, setLang] = useState<"UZ" | "EN" | "RU">("UZ");
@@ -24,8 +16,16 @@ export default function Navbar() {
     else setLang("UZ");
   };
 
+  const navLinks = [
+    { href: "/", label: translations[lang].nav.home },
+    { href: "/blog", label: translations[lang].nav.blog },
+    { href: "/projects", label: translations[lang].nav.projects },
+    { href: "/about", label: translations[lang].nav.about },
+    { href: "/contact", label: translations[lang].nav.contact },
+  ];
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c]/80 backdrop-blur-md border-b border-neutral-800/60">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c]/85 backdrop-blur-md border-b border-neutral-800/60">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">
@@ -59,7 +59,7 @@ export default function Navbar() {
           <button
             onClick={cycleLang}
             className="flex items-center gap-1.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-300 text-xs font-mono px-3 py-1.5 rounded-lg transition-all"
-            title="Change Language"
+            title="Tilni almashtirish"
           >
             <FiGlobe className="text-emerald-400 w-3.5 h-3.5" />
             <span>{lang}</span>
@@ -67,7 +67,7 @@ export default function Navbar() {
 
           <button
             className="p-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-400 hover:text-white rounded-lg transition-all"
-            aria-label="Toggle Theme"
+            aria-label="Mavzuni o'zgartirish"
           >
             <FiSun className="w-4 h-4" />
           </button>

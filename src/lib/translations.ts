@@ -43,6 +43,16 @@ export const translations = {
       hobbyTitle: "Qiziqishlarim",
       hobbyDesc: "Dasturlashdan tashqari shaxmat, algoritmlar tahlili va rubob ijrosida hordiq chiqaraman.",
     },
+    projects: {
+      title: "Tanlangan Loyihalar",
+      subtitle: "Web, mobil va tizimlar muhandisligi bo'yicha yaratgan asosiy ishlarim.",
+      filterAll: "Barchasi",
+      filterWeb: "Web Apps",
+      filterMobile: "Mobile",
+      filterSystems: "Systems & C++",
+      viewCode: "Kod",
+      viewDemo: "Demo",
+    },
   },
   EN: {
     nav: {
@@ -85,6 +95,16 @@ export const translations = {
       principlesDesc: "Write code daily, refactor continuously, and ship weekly.",
       hobbyTitle: "Interests",
       hobbyDesc: "Beyond coding, I enjoy chess strategy, algorithmic puzzles, and playing the Rubab.",
+    },
+    projects: {
+      title: "Featured Projects",
+      subtitle: "A showcase of web applications, mobile tools, and systems engineering projects.",
+      filterAll: "All",
+      filterWeb: "Web Apps",
+      filterMobile: "Mobile",
+      filterSystems: "Systems & C++",
+      viewCode: "Code",
+      viewDemo: "Live Demo",
     },
   },
   RU: {
@@ -129,5 +149,15 @@ export const translations = {
       hobbyTitle: "Увлечения",
       hobbyDesc: "Помимо программирования увлекаюсь шахматами, анализом алгоритмов и игрой на рубабе.",
     },
+    projects: {
+      title: "Избранные Проекты",
+      subtitle: "Обзор веб-приложений, мобильных решений и системных разработок.",
+      filterAll: "Все",
+      filterWeb: "Веб-приложения",
+      filterMobile: "Мобильные",
+      filterSystems: "Системные & C++",
+      viewCode: "Код",
+      viewDemo: "Демо",
+    }
   },
 };
