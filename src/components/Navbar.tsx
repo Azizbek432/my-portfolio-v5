@@ -4,12 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FiCode, FiGlobe, FiSun } from "react-icons/fi";
+import { translations } from "@/lib/translations";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
+  { href: "/", label: translations.UZ.nav.home },
+  { href: "/blog", label: translations.UZ.nav.blog },
+  { href: "/projects", label: translations.UZ.nav.projects },
+  { href: "/about", label: translations.UZ.nav.about },
+  { href: "/contact", label: translations.UZ.nav.contact },
 ];
 
 export default function Navbar() {
