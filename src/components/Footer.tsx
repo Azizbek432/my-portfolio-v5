@@ -32,7 +32,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Social & Connect */}
         <div className="space-y-3">
           <h4 className="text-xs font-mono uppercase text-white tracking-wider">Ijtimoiy tarmoqlar</h4>
           <div className="flex flex-wrap items-center gap-2">
@@ -46,7 +45,7 @@ export default function Footer() {
               <FiGithub className="w-4 h-4" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/azizbek-abdullayev-future-full-stack-developer/"
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
@@ -55,7 +54,7 @@ export default function Footer() {
               <FiLinkedin className="w-4 h-4" />
             </a>
             <a
-              href="https://x.com"
+              href="https://x.com/AzizbekAbd5902"
               target="_blank"
               rel="noreferrer"
               aria-label="X (Twitter)"
@@ -64,7 +63,7 @@ export default function Footer() {
               <FaXTwitter className="w-4 h-4" />
             </a>
             <a
-              href="https://youtube.com"
+              href="https://www.youtube.com/@Azizbek_Abdullayev__2026"
               target="_blank"
               rel="noreferrer"
               aria-label="YouTube"
@@ -73,7 +72,7 @@ export default function Footer() {
               <FiYoutube className="w-4 h-4" />
             </a>
             <a
-              href="https://t.me"
+              href="https://t.me/AzizbekAbdullayev09"
               target="_blank"
               rel="noreferrer"
               aria-label="Telegram"
@@ -82,7 +81,7 @@ export default function Footer() {
               <FiSend className="w-4 h-4" />
             </a>
             <a
-              href="mailto:contact@azizbek.dev"
+              href="mailto:contact@azizbekabdullayev3500@gmail.com"
               target="_blank"
               rel="noreferrer"
               aria-label="Email"
