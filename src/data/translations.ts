@@ -34,6 +34,19 @@ export const translations = {
       subtitle: "Tizimlar arxitekturasi, C++ optimizatsiyasi hamda Full-Stack amaliyoti haqida fikrlar.",
       searchPlaceholder: "Maqolalarni qidirish...",
       filterAll: "Barchasi",
+      createBtn: "Yangi Maqola Yozish",
+      noPosts: "Hozircha maqolalar mavjud emas.",
+      loading: "Yuklanmoqda...",
+      modal: {
+        title: "Yangi Maqola Qo'shish",
+        titleLabel: "Sarlavha (Title)",
+        slugLabel: "Slug (URL uchun)",
+        summaryLabel: "Qisqacha mazmun (Summary)",
+        contentLabel: "To'liq matn (Markdown)",
+        cancel: "Bekor qilish",
+        publish: "E'lon qilish",
+        publishing: "Saqlanmoqda..."
+      }
     },
     about: {
       role: "Dasturchi va Kontent Meyker",
@@ -87,6 +100,19 @@ export const translations = {
       subtitle: "Thoughts, mental models, and deep dives into system architecture, C++, and full-stack development.",
       searchPlaceholder: "Search articles...",
       filterAll: "All",
+      createBtn: "Write New Post",
+      noPosts: "No posts available yet.",
+      loading: "Loading...",
+      modal: {
+        title: "Add New Post",
+        titleLabel: "Title",
+        slugLabel: "Slug (for URL)",
+        summaryLabel: "Summary",
+        contentLabel: "Content (Markdown)",
+        cancel: "Cancel",
+        publish: "Publish",
+        publishing: "Saving..."
+      }
     },
     about: {
       role: "Developer & Educator",
@@ -140,6 +166,19 @@ export const translations = {
       subtitle: "Мысли, архитектурные решения, C++ и практический Full-Stack опыт.",
       searchPlaceholder: "Поиск статей...",
       filterAll: "Все",
+      createBtn: "Написать статью",
+      noPosts: "Постов пока нет.",
+      loading: "Загрузка...",
+      modal: {
+        title: "Добавить новый пост",
+        titleLabel: "Заголовок",
+        slugLabel: "Слаг (для URL)",
+        summaryLabel: "Краткое описание",
+        contentLabel: "Содержимое (Markdown)",
+        cancel: "Отмена",
+        publish: "Опубликовать",
+        publishing: "Сохранение..."
+      }
     },
     about: {
       role: "Разработчик и Автор",

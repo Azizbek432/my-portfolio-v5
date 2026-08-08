@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiExternalLink, FiFolder, FiCode, FiSmartphone, FiCpu } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
-import { projectsData } from "@/lib/projectsData";
+import { projectsData } from "@/data/projectsData";
 
 type CategoryFilter = "all" | "web" | "mobile" | "systems";
 

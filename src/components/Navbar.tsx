@@ -2,13 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { FiCode, FiGlobe, FiSun } from "react-icons/fi";
-import { translations } from "@/lib/translations";
+import { useState, useEffect } from "react";
+import { FiCode, FiGlobe, FiSun, FiMoon } from "react-icons/fi";
+import { translations } from "@/data/translations";
+import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeProvider";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [lang, setLang] = useState<"UZ" | "EN" | "RU">("UZ");
+  const { lang, setLang } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const cycleLang = () => {
     if (lang === "UZ") setLang("EN");
@@ -26,7 +35,8 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c]/85 backdrop-blur-md border-b border-neutral-800/60">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">
             <FiCode className="w-4 h-4" />
@@ -66,12 +76,22 @@ export default function Navbar() {
           </button>
 
           <button
+            onClick={toggleTheme}
             className="p-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-400 hover:text-white rounded-lg transition-all"
             aria-label="Mavzuni o'zgartirish"
           >
-            <FiSun className="w-4 h-4" />
+            {mounted ? (
+              theme === "dark" ? (
+                <FiSun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <FiMoon className="w-4 h-4 text-emerald-400" />
+              )
+            ) : (
+              <div className="w-4 h-4" />
+            )}
           </button>
         </div>
+
       </div>
     </header>
   );

@@ -1,7 +1,9 @@
 /* eslint-disable unknownAtRules */
- /* css-at-rules-v4 */
+/* css-at-rules-v4 */
 
 @import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #0a0a0c;

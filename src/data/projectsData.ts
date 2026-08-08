@@ -64,7 +64,7 @@ export const projectsData: Project[] = [
     },
     category: "web",
     techStack: ["Python", "aiogram", "SQLite", "Asyncio"],
-    githubUrl: "https://github.com/Azizbek433",
+    githubUrl: "https://github.com/Azizbek432/My_Python-backend-projects",
     featured: false,
   },
 ];
