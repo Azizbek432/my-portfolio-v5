@@ -1,13 +1,20 @@
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
+import Link from "next/link";
+import { FiArrowLeft, FiCalendar, FiClock } from "react-icons/fi";
 import Comments from "@/components/Comments";
 import TableOfContents from "@/components/TableOfContents";
-import { notFound } from "next/navigation";
-import { FiCalendar, FiClock, FiArrowLeft } from "react-icons/fi";
-import Link from "next/link";
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const { slug } = resolvedParams;
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+);
+
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
   const { data: post } = await supabase
     .from("posts")
@@ -16,60 +23,70 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     .single();
 
   if (!post) {
-    notFound();
+    return (
+      <main className="w-full min-h-screen bg-[#0a0a0c] text-white pt-32 pb-20 px-6 flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold">Maqola topilmadi</h1>
+        <Link href="/blog" className="mt-4 text-emerald-400 underline">
+          Blogga qaytish
+        </Link>
+      </main>
+    );
   }
 
-  // Formatting escaped newlines if any
-  const formattedContent = post.content ? post.content.replace(/\\n/g, "\n") : "";
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "Yaqinda";
+    const date = new Date(dateString);
+    return isNaN(date.getTime())
+      ? "Yaqinda"
+      : date.toLocaleDateString("uz-UZ", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+  };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0c] text-neutral-100 pt-28 pb-20 px-6">
-      <div className="max-w-6xl mx-auto">
+    <main className="w-full min-h-screen bg-[#0a0a0c] text-neutral-100 pt-28 pb-20 px-6 relative">
+      <div className="max-w-5xl mx-auto space-y-8">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-emerald-400 transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-emerald-400 transition-colors"
         >
-          <FiArrowLeft /> Back to Blog
+          <FiArrowLeft /> Back to Articles
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Main Article Body */}
-          <article className="lg:col-span-8 space-y-8">
-            <header className="space-y-4 border-b border-neutral-800/80 pb-8">
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                {post.title}
-              </h1>
-              <div className="flex items-center gap-4 text-xs font-mono text-neutral-400">
-                <span className="flex items-center gap-1.5">
-                  <FiCalendar className="text-emerald-400" />
-                  {new Date(post.created_at).toLocaleDateString()}
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1.5">
-                  <FiClock className="text-emerald-400" /> 3 min read
-                </span>
-              </div>
-            </header>
+        <div className="space-y-4 border-b border-neutral-800/80 pb-8">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            {post.title}
+          </h1>
 
-            {/* Content Display */}
-            <div className="prose prose-invert max-w-none text-neutral-300 leading-relaxed text-base whitespace-pre-wrap font-sans">
-              {formattedContent}
-            </div>
+          <div className="flex items-center gap-4 text-xs font-mono text-neutral-400">
+            <span className="flex items-center gap-1.5">
+              <FiCalendar className="text-emerald-400" />
+              {formatDate(post.created_at)}
+            </span>
+            <span>•</span>
+            <span className="flex items-center gap-1.5">
+              <FiClock className="text-emerald-400" />
+              {post.reading_time || "3 min read"}
+            </span>
+          </div>
+        </div>
 
-            {/* Interactive Comments Component */}
-            <div className="pt-12">
-              <Comments postSlug={slug} />
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+          <article className="lg:col-span-3 prose prose-invert prose-emerald max-w-none text-neutral-300 leading-relaxed font-sans">
+            <div className="whitespace-pre-wrap">{post.content}</div>
           </article>
 
-          <aside className="hidden lg:block lg:col-span-4">
-            <div className="sticky top-24 p-5 bg-neutral-900/40 border border-neutral-800/80 rounded-2xl space-y-4">
-              <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400">
-                Table of Contents
-              </h3>
-              <TableOfContents content={formattedContent} />
+          <aside className="lg:col-span-1 hidden lg:block">
+            <div className="sticky top-28">
+              <TableOfContents content={post.content} />
             </div>
           </aside>
+        </div>
+
+        <div className="pt-12 border-t border-neutral-800/80">
+          <Comments postSlug={slug} />
         </div>
       </div>
     </main>
