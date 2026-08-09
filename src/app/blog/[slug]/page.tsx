@@ -1,8 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
-import { FiArrowLeft, FiCalendar, FiClock, FiHeart, FiEye } from "react-icons/fi";
+import { FiArrowLeft, FiCalendar, FiClock } from "react-icons/fi";
 import Comments from "@/components/Comments";
 import TableOfContents from "@/components/TableOfContents";
+import PostEngagement from "@/components/PostEngagement";
 import { articles } from "@/data/blogData";
 
 const supabase = createClient(
@@ -27,9 +28,9 @@ export default async function BlogPostPage({
 
   if (!post && !staticArticle) {
     return (
-      <main className="w-full min-h-screen bg-[#0a0a0c] text-white pt-32 pb-20 px-6 flex flex-col items-center justify-center">
+      <main className="w-full min-h-screen bg-neutral-50 dark:bg-[#0a0a0c] text-neutral-900 dark:text-white pt-32 pb-20 px-6 flex flex-col items-center justify-center transition-colors">
         <h1 className="text-2xl font-bold">Maqola topilmadi</h1>
-        <Link href="/blog" className="mt-4 text-emerald-400 underline font-mono text-xs">
+        <Link href="/blog" className="mt-4 text-emerald-600 dark:text-emerald-400 underline font-mono text-xs">
           Blogga qaytish
         </Link>
       </main>
@@ -40,8 +41,10 @@ export default async function BlogPostPage({
   const content = post?.content || staticArticle?.description.UZ || "";
   const date = post?.published_at || staticArticle?.date || new Date().toISOString();
   const readingTime = post?.reading_time || staticArticle?.readTime || "4 min read";
-  const views = post?.views_count || staticArticle?.views || 1;
-  const likes = post?.likes_count || 0;
+
+  const initialViews = post?.views_count || staticArticle?.views || 1;
+  const initialLikes = post?.likes_count || 0;
+  const isStatic = !post && !!staticArticle;
 
   const formatDate = (dateString: string) => {
     if (!dateString) return "Yaqinda";
@@ -56,45 +59,43 @@ export default async function BlogPostPage({
   };
 
   return (
-    <main className="w-full min-h-screen bg-[#0a0a0c] text-neutral-100 pt-28 pb-20 px-6 relative">
+    <main className="w-full min-h-screen bg-neutral-50 dark:bg-[#0a0a0c] text-neutral-900 dark:text-neutral-100 pt-28 pb-20 px-6 relative transition-colors">
       <div className="max-w-5xl mx-auto space-y-8">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-emerald-400 transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
         >
           <FiArrowLeft /> Back to Articles
         </Link>
 
-        <div className="space-y-4 border-b border-neutral-800/80 pb-8">
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        <div className="space-y-4 border-b border-neutral-200 dark:border-neutral-800/80 pb-8">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight">
             {title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-400">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-600 dark:text-neutral-400">
             <span className="flex items-center gap-1.5">
-              <FiCalendar className="text-emerald-400" />
+              <FiCalendar className="text-emerald-600 dark:text-emerald-400" />
               {formatDate(date)}
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5">
-              <FiClock className="text-emerald-400" />
+              <FiClock className="text-emerald-600 dark:text-emerald-400" />
               {readingTime}
             </span>
             <span>•</span>
-            <span className="flex items-center gap-1.5">
-              <FiEye className="text-emerald-400" />
-              {views} views
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1.5 text-emerald-400">
-              <FiHeart />
-              {likes} likes
-            </span>
+            <PostEngagement
+              slug={slug}
+              initialViews={initialViews}
+              initialLikes={initialLikes}
+              postTitle={title}
+              isStatic={isStatic}
+            />
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-          <article className="lg:col-span-3 prose prose-invert prose-emerald max-w-none text-neutral-300 leading-relaxed font-sans">
+          <article className="lg:col-span-3 prose dark:prose-invert prose-emerald max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed font-sans">
             <div className="whitespace-pre-wrap">{content}</div>
           </article>
 
@@ -105,7 +106,7 @@ export default async function BlogPostPage({
           </aside>
         </div>
 
-        <div className="pt-12 border-t border-neutral-800/80">
+        <div className="pt-12 border-t border-neutral-200 dark:border-neutral-800/80">
           <Comments postSlug={slug} />
         </div>
       </div>
