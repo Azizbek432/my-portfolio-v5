@@ -56,7 +56,6 @@ export const translations = {
       greetingPrefix: "Salom! Meni ",
       greetingName: "Azizbek",
       greetingSuffix: " deb atashingiz mumkin.",
-      photoPlaceholder: "[ Azizbek Rasmi ]",
       photoSubtitle: "Full-Stack Dasturchi & Muallif",
       bio: "Men tizimli dasturlash, uzluksiz o'rganish va tayyor mahsulotlarni yetkazib berishga ishtiyoqli Full-stack dasturchiman.",
       principlesTitle: "Prinsiplar",
@@ -65,7 +64,6 @@ export const translations = {
       hobbyDesc: "Dasturlashdan tashqari, shaxmat strategiyasi, mantiqiy masalalar va Rubob chalishni yoqtiraman.",
       techTitle: "Texnologiyalar & Ko'nikmalar",
       servicesTitle: "Xizmatlar & Yechimlar",
-      socialTitle: "Ijtimoiy Tarmoqlar & Portfoliolar",
       servicesList: [
         {
           title: "Full-Stack Web Development",
@@ -150,7 +148,6 @@ export const translations = {
       greetingPrefix: "Hello! You can call me ",
       greetingName: "Azizbek",
       greetingSuffix: ".",
-      photoPlaceholder: "[ Azizbek Photo ]",
       photoSubtitle: "Full-Stack Developer & Creator",
       bio: "I am a Full-stack developer passionate about systems programming, continuous learning, and shipping production-ready products.",
       principlesTitle: "Principles",
@@ -159,7 +156,6 @@ export const translations = {
       hobbyDesc: "Beyond coding, I enjoy chess strategy, algorithmic puzzles, and playing the Rubab.",
       techTitle: "Technologies & Skills",
       servicesTitle: "Services & Solutions",
-      socialTitle: "Social Media & Portfolios",
       servicesList: [
         {
           title: "Full-Stack Web Development",
@@ -244,7 +240,6 @@ export const translations = {
       greetingPrefix: "Привет! Меня зовут ",
       greetingName: "Азизбек",
       greetingSuffix: ".",
-      photoPlaceholder: "[ Фото Азизбека ]",
       photoSubtitle: "Full-Stack Разработчик и Создатель",
       bio: "Я Full-stack разработчик, увлеченный системным программированием, непрерывным обучением и выпуском готовых продуктов.",
       principlesTitle: "Принципы",
@@ -253,7 +248,6 @@ export const translations = {
       hobbyDesc: "Помимо программирования, я увлекаюсь шахматной стратегией, алгоритмическими задачами и игрой на Рубабе.",
       techTitle: "Технологии и навыки",
       servicesTitle: "Услуги и решения",
-      socialTitle: "Социальные сети и портфолио",
       servicesList: [
         {
           title: "Full-Stack Web Development",

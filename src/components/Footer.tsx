@@ -95,7 +95,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-4xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
-        <p>© 2026 Azizbek Abdullayev. Barcha huquqlar himoyalangan.</p>
+        <p>© 2026 Azizbek Abdullayev</p>
         <p className="flex items-center gap-1 font-mono">
           Built with <FiHeart className="text-emerald-400 w-3.5 h-3.5 fill-emerald-400" /> Next.js & Tailwind
         </p>
