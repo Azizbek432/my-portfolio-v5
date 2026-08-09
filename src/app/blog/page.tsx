@@ -35,10 +35,10 @@ export default function BlogPage() {
   }, []);
 
   return (
-    <main className="w-full min-h-screen bg-neutral-50 dark:bg-[#0a0a0c] text-neutral-900 dark:text-neutral-100 pt-32 pb-20 px-6 relative overflow-hidden transition-colors flex flex-col justify-between">
+    <main className="w-full min-h-screen bg-neutral-50 dark:bg-[#0a0a0c] text-neutral-900 dark:text-neutral-100 pt-32 pb-16 px-6 relative overflow-hidden transition-colors flex flex-col">
       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-emerald-500/10 blur-[140px] rounded-full pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto space-y-12 relative z-10 w-full flex-grow">
+      <div className="max-w-4xl mx-auto space-y-12 relative z-10 w-full flex-grow mb-20">
         <div className="space-y-3">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
             {t.title}
