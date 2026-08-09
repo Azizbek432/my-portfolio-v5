@@ -35,7 +35,8 @@ export default function HomePage() {
       streamDesc: "YouTube orqali jonli efirlar, C++ o'yin dasturlash va texnologik bilimlar ulashish.",
       ctaTitle: "Birgalikda loyiha yaratamizmi?",
       ctaDesc: "G'oyangizni zamonaviy web-ilovaga aylantiramiz. Bog'lanish uchun ijtimoiy tarmoqlardan yozishingiz mumkin!",
-      ctaBtn: "Bog'lanish"
+      ctaBtn: "Bog'lanish",
+      moreAbout: "Men haqimda"
     },
     EN: {
       statusBadge: "Currently open for opportunities",
@@ -47,7 +48,8 @@ export default function HomePage() {
       streamDesc: "Broadcasting live coding sessions on YouTube, C++ game dev and engineering insights.",
       ctaTitle: "Have a project or want to collaborate?",
       ctaDesc: "Let's turn your idea into a professional web application together.",
-      ctaBtn: "Get in Touch"
+      ctaBtn: "Get in Touch",
+      moreAbout: "More about me"
     },
     RU: {
       statusBadge: "Открыт к новым проектам",
@@ -59,7 +61,8 @@ export default function HomePage() {
       streamDesc: "Проведение стримов на YouTube, разработка игр на C++ и обмен опытом.",
       ctaTitle: "Есть проект или хотите сотрудничать?",
       ctaDesc: "Давайте вместе превратим вашу идею в профессиональное веб-приложение!",
-      ctaBtn: "Связаться"
+      ctaBtn: "Связаться",
+      moreAbout: "Обо мне"
     }
   };
 
@@ -113,7 +116,7 @@ export default function HomePage() {
               href="/about"
               className="inline-flex items-center gap-2 bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 font-medium text-sm px-5 py-2.5 rounded-full transition-all active:scale-95"
             >
-              <span>More about me</span>
+              <span>{currentExtra.moreAbout}</span>
             </Link>
           </div>
 
