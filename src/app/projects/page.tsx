@@ -26,7 +26,7 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <main className="w-full min-h-screen bg-[#0a0a0c] text-neutral-100 pt-32 pb-20 px-6 relative overflow-hidden">
+    <main className="w-full min-h-screen bg-neutral-50 dark:bg-[#0a0a0c] text-neutral-900 dark:text-neutral-100 pt-32 pb-20 px-6 relative overflow-hidden transition-colors">
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-emerald-500/10 blur-[180px] rounded-full pointer-events-none" />
 
       <div className="max-w-6xl mx-auto space-y-12 relative z-10">
@@ -35,13 +35,13 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center space-y-4"
         >
-          <div className="inline-flex items-center gap-2 bg-emerald-950/60 border border-emerald-800/50 text-emerald-400 text-xs font-mono px-3.5 py-1.5 rounded-full">
+          <div className="inline-flex items-center gap-2 bg-emerald-500/10 dark:bg-emerald-950/60 border border-emerald-500/30 dark:border-emerald-800/50 text-emerald-600 dark:text-emerald-400 text-xs font-mono px-3.5 py-1.5 rounded-full">
             <FiCode /> Production & Open Source
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
             {t.projects.title}
           </h1>
-          <p className="text-neutral-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+          <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             {t.projects.subtitle}
           </p>
         </motion.div>
@@ -62,7 +62,7 @@ export default function ProjectsPage() {
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono transition-all ${
                   isActive
                     ? "bg-emerald-500 text-black font-bold shadow-lg shadow-emerald-500/20"
-                    : "bg-neutral-900/80 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700"
+                    : "bg-white dark:bg-neutral-900/80 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:border-neutral-300 dark:hover:border-neutral-700 shadow-sm"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -82,11 +82,11 @@ export default function ProjectsPage() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
                 key={project.id}
-                className="bg-neutral-900/40 border border-neutral-800/80 hover:border-emerald-500/40 rounded-2xl p-6 flex flex-col justify-between group transition-all backdrop-blur-sm hover:shadow-2xl hover:shadow-emerald-950/30"
+                className="bg-white dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800/80 hover:border-emerald-500/40 rounded-2xl p-6 flex flex-col justify-between group transition-all backdrop-blur-sm shadow-sm hover:shadow-2xl hover:shadow-emerald-950/30"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-950/80 border border-emerald-800/50 text-emerald-400">
+                    <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-md bg-emerald-500/10 dark:bg-emerald-950/80 border border-emerald-500/20 dark:border-emerald-800/50 text-emerald-600 dark:text-emerald-400">
                       {project.category}
                     </span>
                     <div className="flex items-center gap-3">
@@ -95,7 +95,7 @@ export default function ProjectsPage() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-neutral-400 hover:text-emerald-400 transition-colors p-1"
+                          className="text-neutral-500 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors p-1"
                           title={t.projects.viewCode}
                         >
                           <FiGithub className="w-4 h-4" />
@@ -106,7 +106,7 @@ export default function ProjectsPage() {
                           href={project.demoUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-neutral-400 hover:text-emerald-400 transition-colors p-1"
+                          className="text-neutral-500 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors p-1"
                           title={t.projects.viewDemo}
                         >
                           <FiExternalLink className="w-4 h-4" />
@@ -115,19 +115,19 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                     {project.description[lang]}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-4 border-t border-neutral-800/60 flex flex-wrap gap-1.5">
+                <div className="pt-6 mt-4 border-t border-neutral-200 dark:border-neutral-800/60 flex flex-wrap gap-1.5">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="text-[11px] font-mono text-neutral-400 bg-neutral-950 border border-neutral-800 px-2.5 py-1 rounded-lg"
+                      className="text-[11px] font-mono text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 px-2.5 py-1 rounded-lg"
                     >
                       {tech}
                     </span>
@@ -142,12 +142,12 @@ export default function ProjectsPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-16 bg-gradient-to-r from-emerald-950/40 via-neutral-900/60 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-8 sm:p-10 text-center space-y-4 backdrop-blur-sm"
+          className="mt-16 bg-gradient-to-r from-emerald-500/10 via-white dark:via-neutral-900/60 to-emerald-500/10 dark:from-emerald-950/40 dark:to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-8 sm:p-10 text-center space-y-4 backdrop-blur-sm shadow-sm"
         >
-          <h3 className="text-2xl font-bold text-white">
+          <h3 className="text-2xl font-bold text-neutral-900 dark:text-white">
             {t.projects.moreTitle}
           </h3>
-          <p className="text-neutral-400 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
+          <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
             {t.projects.moreSubtitle}
           </p>
           <div className="pt-2">

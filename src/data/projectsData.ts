@@ -49,7 +49,7 @@ export const projectsData: Project[] = [
     category: "web",
     techStack: ["React.js", "CSS", "TypeScript", "Vercel"],
     githubUrl: "https://github.com/Azizbek432/EduCode_Hub",
-    demoUrl: "https://educode-hub.vercel.app",
+    demoUrl: "https://edu-code-hub.vercel.app/",
     featured: true,
   },
   {
@@ -108,13 +108,14 @@ export const projectsData: Project[] = [
     id: "mini-utility",
     title: "Mini Utility",
     description: {
-      UZ: "Kunlik qaydlar, kod snippetlari va tezkor yordamchi mini-utilitalarni boshqarish uchun dastur.",
-      EN: "Developer application for managing daily notes, code snippets, and quick utility tools.",
-      RU: "Приложение разработчика для управления ежедневными заметками и мини-утилитами.",
+      UZ: "Pomodoro taymer, fon musiqasi bilan ishlash (fokus), kunlik qaydlar va tezkor yordamchi mini-utilitalarni o'z ichiga olgan mahsuldorlik ilovasi.",
+      EN: "Productivity application featuring a Pomodoro timer, focus background music, daily notes, and quick utility tools.",
+      RU: "Приложение для продуктивности с таймером Pomodoro, фоновой музыкой для фокуса, ежедневными заметками и утилитами.",
     },
     category: "web",
     techStack: ["HTML", "CSS", "JavaScript", "LocalStorage"],
     githubUrl: "https://github.com/Azizbek432/Mini_Utility", 
+    demoUrl: "https://mini-utility.vercel.app/",
     featured: false,
   },
   {
