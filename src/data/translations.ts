@@ -63,6 +63,19 @@ export const translations = {
       hobbyTitle: "Qiziqishlar",
       hobbyDesc: "Dasturlashdan tashqari, shaxmat strategiyasi, mantiqiy masalalar va Rubob chalishni yoqtiraman.",
       techTitle: "Texnologiyalar & Ko'nikmalar",
+      experienceTitle: "Tajriba & Bosqichlar (2025 — 2026)",
+      experienceList: [
+        {
+          period: "2026 — Hozir",
+          title: "Full-Stack & Systems Engineer",
+          desc: "Next.js 15, NestJS va C++ texnologiyalari yordamida murakkab masshtablanuvchi tizimlar, o'yinlar yaratish hamda CodeNest jamoat ekotizimini muvaffaqiyatli rivojlantirish.",
+        },
+        {
+          period: "2025 (Iyun) — 2025 (Oxiri)",
+          title: "Dasturlashga İlk Qadamlar & Amaliyot",
+          desc: "Dasturlash olamiga ilk qadam qo'yish, Python va web asoslarini mukammal o'zlashtirish, dastlabki Telegram botlar hamda o'yin klonlarini (Ursina, C++/SFML) noldan yaratish.",
+        },
+      ],
       servicesTitle: "Xizmatlar & Yechimlar",
       servicesList: [
         {
@@ -155,6 +168,19 @@ export const translations = {
       hobbyTitle: "Interests",
       hobbyDesc: "Beyond coding, I enjoy chess strategy, algorithmic puzzles, and playing the Rubab.",
       techTitle: "Technologies & Skills",
+      experienceTitle: "Experience & Milestones (2025 — 2026)",
+      experienceList: [
+        {
+          period: "2026 — Present",
+          title: "Full-Stack & Systems Engineer",
+          desc: "Building complex scalable systems and games using Next.js 15, NestJS, and C++, while successfully growing the CodeNest community ecosystem.",
+        },
+        {
+          period: "2025 (June) — 2025 (Late)",
+          title: "First Steps into Programming & Practice",
+          desc: "Taking initial steps into programming, mastering Python and web fundamentals, and building initial Telegram bots and game clones (Ursina, C++/SFML) from scratch.",
+        },
+      ],
       servicesTitle: "Services & Solutions",
       servicesList: [
         {
@@ -247,6 +273,19 @@ export const translations = {
       hobbyTitle: "Интересы",
       hobbyDesc: "Помимо программирования, я увлекаюсь шахматной стратегией, алгоритмическими задачами и игрой на Рубабе.",
       techTitle: "Технологии и навыки",
+      experienceTitle: "Опыт и Этапы (2025 — 2026)",
+      experienceList: [
+        {
+          period: "2026 — Настоящее время",
+          title: "Full-Stack & Systems Engineer",
+          desc: "Создание сложных масштабируемых систем и игр с использованием Next.js 15, NestJS и C++, а также успешное развитие экосистемы сообщества CodeNest.",
+        },
+        {
+          period: "2025 (Июнь) — 2025 (Конец)",
+          title: "Первые шаги в программировании и практика",
+          desc: "Первые шаги в разработке, освоение основ Python и веба, создание первых Telegram-ботов и клонов игр (Ursina, C++/SFML) с нуля.",
+        },
+      ],
       servicesTitle: "Услуги и решения",
       servicesList: [
         {

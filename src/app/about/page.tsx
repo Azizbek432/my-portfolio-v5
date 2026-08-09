@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FiTerminal, FiCode, FiCpu, FiGlobe, FiCheckCircle } from "react-icons/fi";
+import { FiTerminal, FiCode, FiCpu, FiGlobe, FiCheckCircle, FiTrendingUp } from "react-icons/fi";
 import { 
   SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, 
   SiNestjs, SiFastapi, SiPostgresql, SiSqlite, SiDocker, 
@@ -113,6 +113,35 @@ export default function AboutPage() {
               <FiGlobe className="text-emerald-400" /> {t.about.hobbyTitle}
             </h3>
             <p className="text-sm text-neutral-400 leading-relaxed">{t.about.hobbyDesc}</p>
+          </div>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="space-y-6"
+        >
+          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+            <FiTrendingUp className="text-emerald-400" /> {t.about.experienceTitle}
+          </h2>
+          
+          <div className="relative border-l border-neutral-800 ml-4 space-y-8 pl-6 py-2">
+            {t.about.experienceList.map((exp: { period: string; title: string; desc: string }, idx: number) => (
+              <div key={idx} className="relative group">
+                <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-neutral-900 border-2 border-emerald-400 group-hover:bg-emerald-400 transition-colors shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                <div className="p-6 bg-neutral-900/40 border border-neutral-800/80 rounded-2xl space-y-2 hover:border-emerald-500/40 transition-all">
+                  <span className="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block">
+                    {exp.period}
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-1">{exp.title}</h3>
+                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                    {exp.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </motion.div>
 
