@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiExternalLink, FiFolder, FiCode, FiSmartphone, FiCpu } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
 import { projectsData } from "@/data/projectsData";
+import Footer from "@/components/Footer";
 
 type CategoryFilter = "all" | "web" | "mobile" | "systems";
 
@@ -161,6 +162,10 @@ export default function ProjectsPage() {
             </a>
           </div>
         </motion.div>
+      </div>
+
+      <div className="mt-20 relative z-10">
+        <Footer />
       </div>
     </main>
   );
