@@ -11,6 +11,45 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_3xd0EGy-pgf1CkUvlxToRA_-He2dHOC"
 );
 
+function renderMarkdownContent(content: string) {
+  const lines = content.split("\n");
+  return lines.map((line, index) => {
+    if (line.startsWith("# ")) {
+      const text = line.replace("# ", "").trim();
+      const id = text.toLowerCase().replace(/\s+/g, "-");
+      return (
+        <h1 key={index} id={id} className="text-3xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white mt-10 mb-4 scroll-mt-28">
+          {text}
+        </h1>
+      );
+    } else if (line.startsWith("## ")) {
+      const text = line.replace("## ", "").trim();
+      const id = text.toLowerCase().replace(/\s+/g, "-");
+      return (
+        <h2 key={index} id={id} className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mt-8 mb-3 scroll-mt-28">
+          {text}
+        </h2>
+      );
+    } else if (line.startsWith("### ")) {
+      const text = line.replace("### ", "").trim();
+      const id = text.toLowerCase().replace(/\s+/g, "-");
+      return (
+        <h3 key={index} id={id} className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mt-6 mb-2 scroll-mt-28">
+          {text}
+        </h3>
+      );
+    } else if (line.trim() === "") {
+      return <div key={index} className="h-3" />;
+    } else {
+      return (
+        <p key={index} className="mb-4 leading-relaxed text-neutral-700 dark:text-neutral-300">
+          {line}
+        </p>
+      );
+    }
+  });
+}
+
 export default async function BlogPostPage({
   params,
 }: {
@@ -95,12 +134,12 @@ export default async function BlogPostPage({
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-          <article className="lg:col-span-3 prose dark:prose-invert prose-emerald max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed font-sans">
-            <div className="whitespace-pre-wrap">{content}</div>
+          <article className="lg:col-span-3 max-w-none font-sans">
+            {renderMarkdownContent(content)}
           </article>
 
           <aside className="lg:col-span-1 hidden lg:block">
-            <div className="sticky top-28">
+            <div className="sticky top-28 bg-white/50 dark:bg-neutral-900/30 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800/80 backdrop-blur-md">
               <TableOfContents content={content} />
             </div>
           </aside>

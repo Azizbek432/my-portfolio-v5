@@ -8,7 +8,18 @@ interface Heading {
   level: number;
 }
 
-export default function TableOfContents({ content }: { content: string }) {
+interface TableOfContentsProps {
+  content: string;
+  lang?: "uz" | "ru" | "en";
+}
+
+const translations = {
+  uz: "Mundarija",
+  ru: "Содержание",
+  en: "Table of Contents",
+};
+
+export default function TableOfContents({ content, lang = "uz" }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
 
   const headings = useMemo(() => {
@@ -22,6 +33,9 @@ export default function TableOfContents({ content }: { content: string }) {
       } else if (line.startsWith("## ")) {
         const text = line.replace("## ", "").trim();
         parsedHeadings.push({ id: text.toLowerCase().replace(/\s+/g, "-"), text, level: 2 });
+      } else if (line.startsWith("### ")) {
+        const text = line.replace("### ", "").trim();
+        parsedHeadings.push({ id: text.toLowerCase().replace(/\s+/g, "-"), text, level: 3 });
       }
     });
 
@@ -37,7 +51,7 @@ export default function TableOfContents({ content }: { content: string }) {
           }
         });
       },
-      { rootMargin: "-80px 0px -40% 0px" }
+      { rootMargin: "-100px 0px -40% 0px" }
     );
 
     headings.forEach((heading) => {
@@ -50,17 +64,19 @@ export default function TableOfContents({ content }: { content: string }) {
 
   if (headings.length === 0) return null;
 
+  const currentLang = translations[lang] ? lang : "uz";
+
   return (
     <div className="space-y-3 text-xs">
-      <h3 className="font-mono text-neutral-500 uppercase tracking-wider font-semibold">
-        Table of Contents
+      <h3 className="font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">
+        {translations[currentLang]}
       </h3>
       <ul className="space-y-2 border-l border-neutral-200 dark:border-neutral-800 pl-3">
         {headings.map((heading) => (
           <li key={heading.id} style={{ paddingLeft: `${(heading.level - 1) * 8}px` }}>
             <a
               href={`#${heading.id}`}
-              className={`block transition-colors ${
+              className={`block transition-colors line-clamp-1 ${
                 activeId === heading.id
                   ? "text-emerald-600 dark:text-emerald-400 font-semibold"
                   : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
