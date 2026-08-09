@@ -28,7 +28,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "fintrack",
-    title: "FinTrack Finance Manager",
+    title: "FinTrack",
     description: {
       UZ: "Shaxsiy moliyani boshqarish va xarajatlarni kuzatish uchun mo'ljallangan zamonaviy web-ilova.",
       EN: "Modern web application designed for personal finance management and expense tracking.",

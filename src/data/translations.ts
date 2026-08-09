@@ -65,6 +65,9 @@ export const translations = {
       filterSystems: "Systems & C++",
       viewCode: "Kod",
       viewDemo: "Demo",
+      moreTitle: "Barcha loyihalarimni ko'rmoqchimisiz?",
+      moreSubtitle: "GitHub sahifamda 50 dan ortiq ochiq kodli kichik utilitylar, skriptlar va tajriba loyihalarim bilan tanishishingiz mumkin.",
+      moreButton: "GitHubda barchasini ko'rish",
     },
   },
   EN: {
@@ -131,6 +134,9 @@ export const translations = {
       filterSystems: "Systems & C++",
       viewCode: "Code",
       viewDemo: "Live Demo",
+      moreTitle: "Want to explore all my projects?",
+      moreSubtitle: "You can check out over 50 open-source repositories, small utilities, scripts, and experimental projects on my GitHub profile.",
+      moreButton: "View all on GitHub",
     },
   },
   RU: {
@@ -197,6 +203,9 @@ export const translations = {
       filterSystems: "Системные & C++",
       viewCode: "Код",
       viewDemo: "Демо",
+      moreTitle: "Хотите посмотреть все мои проекты?",
+      moreSubtitle: "Вы можете ознакомиться с более чем 50 репозиториями с открытым исходным кодом, утилитами и экспериментальными проектами в моем профиле GitHub.",
+      moreButton: "Смотреть все на GitHub",
     }
   },
 };

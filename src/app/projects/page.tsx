@@ -136,6 +136,31 @@ export default function ProjectsPage() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mt-16 bg-gradient-to-r from-emerald-950/40 via-neutral-900/60 to-emerald-950/40 border border-emerald-500/30 rounded-2xl p-8 sm:p-10 text-center space-y-4 backdrop-blur-sm"
+        >
+          <h3 className="text-2xl font-bold text-white">
+            {t.projects.moreTitle}
+          </h3>
+          <p className="text-neutral-400 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
+            {t.projects.moreSubtitle}
+          </p>
+          <div className="pt-2">
+            <a
+              href="https://github.com/Azizbek432"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-black font-bold text-xs font-mono shadow-lg shadow-emerald-500/20 hover:bg-emerald-400 transition-all"
+            >
+              <FiGithub className="w-4 h-4" />
+              <span>{t.projects.moreButton}</span>
+            </a>
+          </div>
+        </motion.div>
       </div>
     </main>
   );
