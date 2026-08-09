@@ -45,16 +45,41 @@ export const translations = {
         contentLabel: "To'liq matn (Markdown)",
         cancel: "Bekor qilish",
         publish: "E'lon qilish",
-        publishing: "Saqlanmoqda..."
-      }
+        publishing: "Saqlanmoqda...",
+      },
     },
     about: {
-      role: "Dasturchi va Kontent Meyker",
-      bio: "Men web va tizimlar dasturlashga ishtiyoqli, har kuni izlanish va doimiy amaliyot orqali sifatli mahsulotlar yaratuvchi dasturchiman.",
-      principlesTitle: "Prinsiplarim",
-      principlesDesc: "Har kuni kod yozish, har hafta sifatli refaktoring va deploy qilish asosiy qoidamdir.",
-      hobbyTitle: "Qiziqishlarim",
-      hobbyDesc: "Dasturlashdan tashqari shaxmat, algoritmlar tahlili va rubob ijrosida hordiq chiqaraman.",
+      role: "Dasturchi & O'qituvchi",
+      title: "Men",
+      titleHighlight: "haqimda",
+      subtitle: "O'sish, kod va uzluksiz kashfiyotlar tarixi.",
+      greetingPrefix: "Salom! Meni ",
+      greetingName: "Azizbek",
+      greetingSuffix: " deb atashingiz mumkin.",
+      photoPlaceholder: "[ Azizbek Rasmi ]",
+      photoSubtitle: "Full-Stack Dasturchi & Muallif",
+      bio: "Men tizimli dasturlash, uzluksiz o'rganish va tayyor mahsulotlarni yetkazib berishga ishtiyoqli Full-stack dasturchiman.",
+      principlesTitle: "Prinsiplar",
+      principlesDesc: "Har kuni kod yozing, doimiy ravishda refaktor qiling va har hafta yangi mahsulot chiqaring.",
+      hobbyTitle: "Qiziqishlar",
+      hobbyDesc: "Dasturlashdan tashqari, shaxmat strategiyasi, mantiqiy masalalar va Rubob chalishni yoqtiraman.",
+      techTitle: "Texnologiyalar & Ko'nikmalar",
+      servicesTitle: "Xizmatlar & Yechimlar",
+      socialTitle: "Ijtimoiy Tarmoqlar & Portfoliolar",
+      servicesList: [
+        {
+          title: "Full-Stack Web Development",
+          desc: "React, Next.js hamda Node.js/NestJS ekotizimi orqali zamonaviy, tezkor va xavfsiz web ilovalar yaratish.",
+        },
+        {
+          title: "Mobile App Development",
+          desc: "React Native va Expo yordamida iOS hamda Android uchun qulay cross-platform mobil ilovalar ishlab chiqish.",
+        },
+        {
+          title: "Telegram Bots & Automation",
+          desc: "Biznes jarayonlarini va o'quv platformalarini avtomatlashtiruvchi intellektual Telegram botlar.",
+        },
+      ],
     },
     projects: {
       title: "Tanlangan Loyihalar",
@@ -114,16 +139,41 @@ export const translations = {
         contentLabel: "Content (Markdown)",
         cancel: "Cancel",
         publish: "Publish",
-        publishing: "Saving..."
-      }
+        publishing: "Saving...",
+      },
     },
     about: {
       role: "Developer & Educator",
+      title: "About",
+      titleHighlight: "Me",
+      subtitle: "A story of growth, code, and continuous discovery.",
+      greetingPrefix: "Hello! You can call me ",
+      greetingName: "Azizbek",
+      greetingSuffix: ".",
+      photoPlaceholder: "[ Azizbek Photo ]",
+      photoSubtitle: "Full-Stack Developer & Creator",
       bio: "I am a Full-stack developer passionate about systems programming, continuous learning, and shipping production-ready products.",
       principlesTitle: "Principles",
       principlesDesc: "Write code daily, refactor continuously, and ship weekly.",
       hobbyTitle: "Interests",
       hobbyDesc: "Beyond coding, I enjoy chess strategy, algorithmic puzzles, and playing the Rubab.",
+      techTitle: "Technologies & Skills",
+      servicesTitle: "Services & Solutions",
+      socialTitle: "Social Media & Portfolios",
+      servicesList: [
+        {
+          title: "Full-Stack Web Development",
+          desc: "Building modern, fast, and secure web applications through React, Next.js, and Node.js/NestJS ecosystem.",
+        },
+        {
+          title: "Mobile App Development",
+          desc: "Developing user-friendly cross-platform mobile apps for iOS and Android using React Native and Expo.",
+        },
+        {
+          title: "Telegram Bots & Automation",
+          desc: "Intelligent Telegram bots automating business processes and educational platforms.",
+        },
+      ],
     },
     projects: {
       title: "Featured Projects",
@@ -183,16 +233,41 @@ export const translations = {
         contentLabel: "Содержимое (Markdown)",
         cancel: "Отмена",
         publish: "Опубликовать",
-        publishing: "Сохранение..."
-      }
+        publishing: "Сохранение...",
+      },
     },
     about: {
-      role: "Разработчик и Автор",
-      bio: "Full-stack разработчик, увлеченный системным программированием, постоянным обучением и созданием качественных продуктов.",
+      role: "Разработчик и Преподаватель",
+      title: "О",
+      titleHighlight: "себе",
+      subtitle: "История роста, кода и постоянных открытий.",
+      greetingPrefix: "Привет! Меня зовут ",
+      greetingName: "Азизбек",
+      greetingSuffix: ".",
+      photoPlaceholder: "[ Фото Азизбека ]",
+      photoSubtitle: "Full-Stack Разработчик и Создатель",
+      bio: "Я Full-stack разработчик, увлеченный системным программированием, непрерывным обучением и выпуском готовых продуктов.",
       principlesTitle: "Принципы",
-      principlesDesc: "Писать код каждый день, постоянно улучшать архитектуру и выкатывать релизы еженедельно.",
-      hobbyTitle: "Увлечения",
-      hobbyDesc: "Помимо программирования увлекаюсь шахматами, анализом алгоритмов и игрой на рубабе.",
+      principlesDesc: "Пишите код каждый день, постоянно рефакторьте и выпускайте обновления каждую неделю.",
+      hobbyTitle: "Интересы",
+      hobbyDesc: "Помимо программирования, я увлекаюсь шахматной стратегией, алгоритмическими задачами и игрой на Рубабе.",
+      techTitle: "Технологии и навыки",
+      servicesTitle: "Услуги и решения",
+      socialTitle: "Социальные сети и портфолио",
+      servicesList: [
+        {
+          title: "Full-Stack Web Development",
+          desc: "Создание современных, быстрых и безопасных веб-приложений с использованием экосистемы React, Next.js и Node.js/NestJS.",
+        },
+        {
+          title: "Mobile App Development",
+          desc: "Разработка удобных кроссплатформенных мобильных приложений для iOS и Android с использованием React Native и Expo.",
+        },
+        {
+          title: "Telegram Bots & Automation",
+          desc: "Интеллектуальные Telegram-боты для автоматизации бизнес-процессов и образовательных платформ.",
+        },
+      ],
     },
     projects: {
       title: "Избранные Проекты",
@@ -206,6 +281,6 @@ export const translations = {
       moreTitle: "Хотите посмотреть все мои проекты?",
       moreSubtitle: "Вы можете ознакомиться с более чем 50 репозиториями с открытым исходным кодом, утилитами и экспериментальными проектами в моем профиле GitHub.",
       moreButton: "Смотреть все на GitHub",
-    }
+    },
   },
 };

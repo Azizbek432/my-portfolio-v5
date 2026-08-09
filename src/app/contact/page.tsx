@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiSend, FiMail, FiMessageSquare, FiUser, FiCheckCircle, FiAlertCircle } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
+import Footer from "@/components/Footer";
 
 export default function ContactPage() {
   const { t } = useLanguage();
@@ -39,10 +40,10 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="w-full min-h-screen bg-[#0a0a0c] text-neutral-100 pt-32 pb-20 px-6 relative overflow-hidden">
+    <main className="w-full min-h-screen bg-[#0a0a0c] text-neutral-100 pt-32 pb-10 px-6 relative overflow-hidden flex flex-col justify-between">
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/10 blur-[160px] rounded-full pointer-events-none" />
 
-      <div className="max-w-3xl mx-auto space-y-12 relative z-10">
+      <div className="max-w-3xl mx-auto space-y-12 relative z-10 w-full">
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -138,6 +139,10 @@ export default function ContactPage() {
           </form>
         </motion.div>
 
+      </div>
+
+      <div className="mt-24 relative z-10">
+        <Footer />
       </div>
     </main>
   );
