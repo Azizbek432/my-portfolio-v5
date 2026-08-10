@@ -37,6 +37,9 @@ export default function PostEngagement({
   useEffect(() => {
     const registerViewAndSync = async () => {
       try {
+        const sessionKey = `viewed_${slug}`;
+        const alreadyViewed = sessionStorage.getItem(sessionKey);
+
         const { data: existing } = await supabase
           .from("posts")
           .select("*")
@@ -61,12 +64,19 @@ export default function PostEngagement({
             setViews(inserted.views_count);
             setLikes(inserted.likes_count);
           }
+          sessionStorage.setItem(sessionKey, "true");
         } else if (existing) {
-          const newViews = (existing.views_count || 0) + 1;
-          await supabase
-            .from("posts")
-            .update({ views_count: newViews })
-            .eq("slug", slug);
+          let newViews = existing.views_count || 0;
+
+          if (!alreadyViewed) {
+            newViews += 1;
+            await supabase
+              .from("posts")
+              .update({ views_count: newViews })
+              .eq("slug", slug);
+            sessionStorage.setItem(sessionKey, "true");
+          }
+
           setViews(newViews);
           setLikes(existing.likes_count || 0);
         }
@@ -79,10 +89,9 @@ export default function PostEngagement({
   }, [slug, isStatic, postTitle, initialLikes]);
 
   const handleLike = async () => {
-    if (hasLiked) return;
-
     try {
-      const newLikes = likes + 1;
+      const newLikes = hasLiked ? Math.max(0, likes - 1) : likes + 1;
+      const nextLikedState = !hasLiked;
 
       const { data: existing } = await supabase
         .from("posts")
@@ -108,8 +117,13 @@ export default function PostEngagement({
       }
 
       setLikes(newLikes);
-      setHasLiked(true);
-      localStorage.setItem(`liked_${slug}`, "true");
+      setHasLiked(nextLikedState);
+      
+      if (nextLikedState) {
+        localStorage.setItem(`liked_${slug}`, "true");
+      } else {
+        localStorage.removeItem(`liked_${slug}`);
+      }
     } catch (err) {
       console.error("Error liking post:", err);
     }
@@ -125,11 +139,10 @@ export default function PostEngagement({
       <button
         type="button"
         onClick={handleLike}
-        disabled={hasLiked}
-        className={`flex items-center gap-1.5 px-3 py-1 rounded-full border transition-all ${
+        className={`flex items-center gap-1.5 px-3 py-1 rounded-full border transition-all cursor-pointer active:scale-95 ${
           hasLiked
-            ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400 cursor-default"
-            : "border-neutral-200 dark:border-neutral-800 hover:border-emerald-500 text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer active:scale-95"
+            ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+            : "border-neutral-200 dark:border-neutral-800 hover:border-emerald-500 text-neutral-600 dark:text-neutral-400 hover:text-neutral-600 dark:hover:text-emerald-400"
         }`}
       >
         <FiHeart
