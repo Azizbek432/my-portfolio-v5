@@ -1,15 +1,46 @@
-import { createClient } from "@supabase/supabase-js";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
-import { FiArrowLeft, FiCalendar, FiClock } from "react-icons/fi";
-import Comments from "@/components/Comments";
+import { FiArrowLeft, FiCalendar, FiClock, FiGlobe } from "react-icons/fi";
+import CommentsSection from "@/components/CommentsSection";
 import TableOfContents from "@/components/TableOfContents";
 import PostEngagement from "@/components/PostEngagement";
 import { articles } from "@/data/blogData";
+import { supabase } from "@/lib/supabase";
+import { useLanguage } from "@/context/LanguageContext";
+import Loading from "../loading";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://qfutuisdbyulpiboxxan.supabase.co",
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_3xd0EGy-pgf1CkUvlxToRA_-He2dHOC"
-);
+interface PostData {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  summary: string;
+  published_at: string;
+  reading_time: string;
+  views_count: number;
+  likes_count: number;
+}
+
+const postDict = {
+  UZ: {
+    back: "Maqolalarga qaytish",
+    notFound: "Maqola topilmadi",
+    backToBlog: "Blogga qaytish",
+  },
+  EN: {
+    back: "Back to Articles",
+    notFound: "Article not found",
+    backToBlog: "Back to Blog",
+  },
+  RU: {
+    back: "Назад к статьям",
+    notFound: "Статья не найдена",
+    backToBlog: "Вернуться в блог",
+  },
+};
 
 function renderMarkdownContent(content: string) {
   const lines = content.split("\n");
@@ -50,34 +81,66 @@ function renderMarkdownContent(content: string) {
   });
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+export default function BlogPostPage() {
+  const params = useParams();
+  const slug = typeof params?.slug === "string" ? params.slug : "";
+  const { lang, setLang } = useLanguage();
+  
+  const currentLang = (lang?.toUpperCase() || "UZ") as "UZ" | "EN" | "RU";
+  const t = postDict[currentLang] || postDict.UZ;
 
-  const { data: post } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("slug", slug)
-    .single();
+  const [post, setPost] = useState<PostData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!slug) return;
+    async function fetchPost() {
+      const { data, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("slug", slug)
+        .single();
+
+      if (!error && data) {
+        setPost(data as PostData);
+      }
+      setLoading(false);
+    }
+    fetchPost();
+  }, [slug]);
 
   const staticArticle = articles.find((a) => a.slug === slug);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (!post && !staticArticle) {
     return (
       <main className="w-full min-h-screen bg-neutral-50 dark:bg-[#0a0a0c] text-neutral-900 dark:text-white pt-32 pb-20 px-6 flex flex-col items-center justify-center transition-colors">
-        <h1 className="text-2xl font-bold">Maqola topilmadi</h1>
+        <h1 className="text-2xl font-bold">{t.notFound}</h1>
         <Link href="/blog" className="mt-4 text-emerald-600 dark:text-emerald-400 underline font-mono text-xs">
-          Blogga qaytish
+          {t.backToBlog}
         </Link>
       </main>
     );
   }
 
-  const title = post?.title || staticArticle?.title.UZ || "Maqola";
-  const content = post?.content || staticArticle?.description.UZ || "";
+  const staticTitleMap = staticArticle?.title as unknown as Record<string, string>;
+  const staticDescMap = staticArticle?.description as unknown as Record<string, string>;
+
+  const title =
+    post?.title ||
+    staticTitleMap?.[currentLang] ||
+    staticTitleMap?.UZ ||
+    "Maqola";
+
+  const content =
+    post?.content ||
+    staticDescMap?.[currentLang] ||
+    staticDescMap?.UZ ||
+    "";
+
   const date = post?.published_at || staticArticle?.date || new Date().toISOString();
   const readingTime = post?.reading_time || staticArticle?.readTime || "4 min read";
 
@@ -90,7 +153,7 @@ export default async function BlogPostPage({
     const d = new Date(dateString);
     return isNaN(d.getTime())
       ? "Yaqinda"
-      : d.toLocaleDateString("uz-UZ", {
+      : d.toLocaleDateString(currentLang === "UZ" ? "uz-UZ" : currentLang === "RU" ? "ru-RU" : "en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
@@ -100,12 +163,32 @@ export default async function BlogPostPage({
   return (
     <main className="w-full min-h-screen bg-neutral-50 dark:bg-[#0a0a0c] text-neutral-900 dark:text-neutral-100 pt-28 pb-20 px-6 relative transition-colors">
       <div className="max-w-5xl mx-auto space-y-8">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-        >
-          <FiArrowLeft /> Back to Articles
-        </Link>
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          >
+            <FiArrowLeft /> {t.back}
+          </Link>
+
+          <div className="flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-900 px-2 py-1 rounded-xl border border-neutral-200 dark:border-neutral-800 text-xs font-mono">
+            <FiGlobe className="text-neutral-400 w-3.5 h-3.5" />
+            {(["UZ", "EN", "RU"] as const).map((l) => (
+              <button
+                key={l}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                onClick={() => setLang(l.toLowerCase() as any)}
+                className={`uppercase px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
+                  currentLang === l
+                    ? "bg-emerald-500 text-black font-bold"
+                    : "text-neutral-400 hover:text-neutral-200"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div className="space-y-4 border-b border-neutral-200 dark:border-neutral-800/80 pb-8">
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight">
@@ -146,7 +229,7 @@ export default async function BlogPostPage({
         </div>
 
         <div className="pt-12 border-t border-neutral-200 dark:border-neutral-800/80">
-          <Comments postSlug={slug} />
+          <CommentsSection postSlug={slug} />
         </div>
       </div>
     </main>
