@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import { createClient, User } from "@supabase/supabase-js";
 import { FiHeart, FiMessageSquare, FiTrash2, FiEdit2, FiLogOut, FiGithub, FiGlobe, FiUser } from "react-icons/fi";
 
@@ -102,15 +101,15 @@ function getRelativeTime(dateString: string, t: typeof dict["uz"]) {
 
   if (seconds < 60) return t.justNow;
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}${t.mAgo}`;
+  if (minutes < 60) return `${minutes}m ago`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}${t.hAgo}`;
+  if (hours < 24) return `${hours}h ago`;
   const days = Math.floor(hours / 24);
   if (days === 1) return t.yesterday;
-  if (days < 7) return `${days}${t.dAgo}`;
+  if (days < 7) return `${days}d ago`;
   if (days < 30) return t.lastWeek;
   const months = Math.floor(days / 30);
-  if (months < 12) return `${months}${t.moAgo}`;
+  if (months < 12) return `${months}mo ago`;
   return t.lastYear;
 }
 
@@ -309,12 +308,10 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
 
           {user ? (
             <div className="flex items-center gap-3">
-              <Image 
+              <img 
                 src={user.user_metadata?.avatar_url || "https://github.com/shadcn.png"} 
                 alt="Avatar" 
-                width={32} 
-                height={32} 
-                className="rounded-full border border-neutral-700" 
+                className="w-8 h-8 rounded-full border border-neutral-700 object-cover" 
               />
               <span className="text-xs font-mono text-neutral-400 hidden sm:inline">{user.user_metadata?.full_name || user.email}</span>
               <button onClick={signOut} className="p-1.5 rounded-lg bg-neutral-200 dark:bg-neutral-800 hover:text-red-500 transition-colors cursor-pointer" title={t.logout}>
@@ -369,12 +366,10 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
           <div key={comment.id} className="p-4 rounded-2xl bg-white dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Image 
+                <img 
                   src={comment.user_avatar || "https://github.com/shadcn.png"} 
                   alt="Avatar" 
-                  width={32} 
-                  height={32} 
-                  className="rounded-full border border-neutral-700" 
+                  className="w-8 h-8 rounded-full border border-neutral-700 object-cover" 
                 />
                 <div>
                   <div className="flex items-center gap-2">
