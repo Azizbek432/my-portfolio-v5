@@ -173,15 +173,17 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "comments", filter: `post_slug=eq.${postSlug}` },
-        () => {
-          fetchCommentsAndLikes(user);
+        async () => {
+          const { data } = await supabase.auth.getUser();
+          fetchCommentsAndLikes(data?.user || null);
         }
       )
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "comment_likes" },
-        () => {
-          fetchCommentsAndLikes(user);
+        async () => {
+          const { data } = await supabase.auth.getUser();
+          fetchCommentsAndLikes(data?.user || null);
         }
       )
       .subscribe();
@@ -190,7 +192,7 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
       authListener.subscription.unsubscribe();
       supabase.removeChannel(channel);
     };
-  }, [postSlug, fetchCommentsAndLikes, user]);
+  }, [postSlug, fetchCommentsAndLikes]);
 
   const signInWithGithub = async () => {
     await supabase.auth.signInWithOAuth({
