@@ -16,7 +16,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'api.dicebear.com', // Mehmonlar avatari uchun qo'shildi
+        hostname: 'api.dicebear.com', 
       },
     ],
   },
