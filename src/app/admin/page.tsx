@@ -24,18 +24,16 @@ export default function AdminPage() {
   const [error, setError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Post form states
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // Modal ichidagi xabarlar uchun state
   const [formError, setFormError] = useState("");
   const [formSuccess, setFormSuccess] = useState("");
 
-  const ADMIN_PASSWORD = "admin2012";
+  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin2012";
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
