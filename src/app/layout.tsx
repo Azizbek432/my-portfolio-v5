@@ -10,8 +10,21 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mon
 
 export const metadata: Metadata = {
   title: "Azizbek Abdullayev | Full Stack developer",
-  description: "Personal Portfolio, Engineering Blog, and Contact Platform built with Next.js & Formspree.",
+  description: "Personal Portfolio, Engineering Blog, and Contact Platform built with Next.js, Tailwind CSS, Supabase, and Formspree.",
+  openGraph: {
+    title: "Azizbek Abdullayev | Full Stack Developer",
+    description: "Personal Portfolio, Engineering Blog, and Contact Platform built with Next.js, Tailwind CSS, Supabase, and Formspree.",
+    url: "https://azizbek-dev.vercel.app", 
+    siteName: "Azizbek Abdullayev Portfolio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Azizbek Abdullayev | Full Stack Developer",
+    description: "Personal Portfolio, Engineering Blog, and Contact Platform built with Next.js, Tailwind CSS, Supabase, and Formspree.",
+  },
 };
+
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

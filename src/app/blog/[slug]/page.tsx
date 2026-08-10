@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { FiArrowLeft, FiCalendar, FiClock, FiGlobe } from "react-icons/fi";
+import { FiArrowLeft, FiCalendar, FiClock } from "react-icons/fi";
 import CommentsSection from "@/components/CommentsSection";
 import TableOfContents from "@/components/TableOfContents";
 import PostEngagement from "@/components/PostEngagement";
@@ -29,16 +29,34 @@ const postDict = {
     back: "Maqolalarga qaytish",
     notFound: "Maqola topilmadi",
     backToBlog: "Blogga qaytish",
+    otherLang: "Read in other language?",
+    uzbek: "O'zbekcha",
+    english: "English",
+    russian: "Русский",
+    soon: "SOON",
+    active: "Active",
   },
   EN: {
     back: "Back to Articles",
     notFound: "Article not found",
     backToBlog: "Back to Blog",
+    otherLang: "Read in other language?",
+    uzbek: "O'zbekcha",
+    english: "English",
+    russian: "Русский",
+    soon: "SOON",
+    active: "Active",
   },
   RU: {
     back: "Назад к статьям",
     notFound: "Статья не найдена",
     backToBlog: "Вернуться в блог",
+    otherLang: "Read in other language?",
+    uzbek: "O'zbekcha",
+    english: "English",
+    russian: "Русский",
+    soon: "SOON",
+    active: "Active",
   },
 };
 
@@ -170,24 +188,6 @@ export default function BlogPostPage() {
           >
             <FiArrowLeft /> {t.back}
           </Link>
-
-          <div className="flex items-center gap-1.5 bg-neutral-100 dark:bg-neutral-900 px-2 py-1 rounded-xl border border-neutral-200 dark:border-neutral-800 text-xs font-mono">
-            <FiGlobe className="text-neutral-400 w-3.5 h-3.5" />
-            {(["UZ", "EN", "RU"] as const).map((l) => (
-              <button
-                key={l}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onClick={() => setLang(l.toLowerCase() as any)}
-                className={`uppercase px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
-                  currentLang === l
-                    ? "bg-emerald-500 text-black font-bold"
-                    : "text-neutral-400 hover:text-neutral-200"
-                }`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="space-y-4 border-b border-neutral-200 dark:border-neutral-800/80 pb-8">
@@ -221,9 +221,41 @@ export default function BlogPostPage() {
             {renderMarkdownContent(content)}
           </article>
 
-          <aside className="lg:col-span-1 hidden lg:block">
+          <aside className="lg:col-span-1 hidden lg:block space-y-6">
             <div className="sticky top-28 bg-white/50 dark:bg-neutral-900/30 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800/80 backdrop-blur-md">
               <TableOfContents content={content} />
+              
+              <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-800/80">
+                <h4 className="text-xs font-mono font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-3">
+                  {t.otherLang}
+                </h4>
+                <div className="space-y-2 text-xs font-mono">
+                  <button
+                    onClick={() => setLang("UZ")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors cursor-pointer ${
+                      currentLang === "UZ"
+                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20"
+                        : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      {currentLang === "UZ" && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>}
+                      {t.uzbek}
+                    </span>
+                    {currentLang === "UZ" && <span className="text-[10px]">{t.active}</span>}
+                  </button>
+
+                  <div className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-neutral-400 dark:text-neutral-500 cursor-not-allowed">
+                    <span>{t.english}</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">{t.soon}</span>
+                  </div>
+
+                  <div className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-neutral-400 dark:text-neutral-500 cursor-not-allowed">
+                    <span>{t.russian}</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">{t.soon}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </aside>
         </div>
