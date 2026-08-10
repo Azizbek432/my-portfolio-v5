@@ -3,60 +3,77 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { createClient, User } from "@supabase/supabase-js";
-import { FiHeart, FiMessageSquare, FiTrash2, FiEdit2, FiLogOut, FiGithub, FiGlobe } from "react-icons/fi";
-import { FcGoogle } from "react-icons/fc";
+import { FiHeart, FiMessageSquare, FiTrash2, FiEdit2, FiLogOut, FiGithub, FiGlobe, FiUser } from "react-icons/fi";
 
 const dict = {
   uz: {
     comments: "Izohlar",
     placeholder: "Fikr va mulohazalaringizni yozing...",
+    guestPlaceholder: "Ismingiz (ixtiyoriy, yozmasangiz Mehmon bo'ladi)...",
+    guestTip: "💡 GitHubga kirmasdan ham bemalol ism yozib izoh qoldirishingiz mumkin.",
     post: "Izoh qoldirish",
-    loginGoogle: "Google",
-    loginGithub: "GitHub",
+    loginGithub: "GitHub orqali kirish",
     logout: "Chiqish",
-    reply: "Javob berish",
     edit: "Tahrirlash",
     delete: "O'chirish",
     save: "Saqlash",
     cancel: "Bekor qilish",
-    pleaseLogin: "Izoh qoldirish uchun yuqoridagi tugmalar orqali kiring.",
-    replyPlaceholder: "Javob yozing...",
-    send: "Yuborish",
-    author: "Author"
+    author: "Muallif",
+    guestBadge: "Mehmon",
+    justNow: "hozirgina",
+    mAgo: "bir oy oldin",
+    hAgo: "1 soat oldin",
+    yesterday: "kecha",
+    dAgo: "1 kun oldin",
+    lastWeek: "o'tgan hafta",
+    moAgo: "1 oy oldin",
+    lastYear: "o'tgan yil"
   },
   en: {
     comments: "Comments",
     placeholder: "Write your thoughts...",
+    guestPlaceholder: "Your name (optional, defaults to Guest)...",
+    guestTip: "💡 You can leave a comment with your name without signing into GitHub.",
     post: "Post comment",
-    loginGoogle: "Google",
-    loginGithub: "GitHub",
+    loginGithub: "Sign in with GitHub",
     logout: "Logout",
-    reply: "Reply",
     edit: "Edit",
     delete: "Delete",
     save: "Save",
     cancel: "Cancel",
-    pleaseLogin: "Please sign in above to leave a comment.",
-    replyPlaceholder: "Write a reply...",
-    send: "Send",
-    author: "Author"
+    author: "Author",
+    guestBadge: "Guest",
+    justNow: "just now",
+    mAgo: "1 month ago",
+    hAgo: "1 hour ago",
+    yesterday: "yesterday",
+    dAgo: "1 day ago",
+    lastWeek: "last week",
+    moAgo: "1 month ago",
+    lastYear: "last year"
   },
   ru: {
     comments: "Комментарии",
     placeholder: "Напишите свой отзыв...",
+    guestPlaceholder: "Ваше имя (необязательно, по умолчанию Гость)...",
+    guestTip: "💡 Вы можете оставить комментарий от своего имени без входа через GitHub.",
     post: "Отправить",
-    loginGoogle: "Google",
-    loginGithub: "GitHub",
+    loginGithub: "Войти через GitHub",
     logout: "Выйти",
-    reply: "Ответить",
     edit: "Редактировать",
     delete: "Удалить",
     save: "Сохранить",
     cancel: "Отмена",
-    pleaseLogin: "Войдите, чтобы оставить комментарий.",
-    replyPlaceholder: "Напишите ответ...",
-    send: "Отправить",
-    author: "Author"
+    author: "Автор",
+    guestBadge: "Гость",
+    justNow: "только что",
+    mAgo: "1 месяц назад",
+    hAgo: "1 час назад",
+    yesterday: "вчера",
+    dAgo: "1 день назад",
+    lastWeek: "на прошлой неделе",
+    moAgo: "1 месяц назад",
+    lastYear: "в прошлом году"
   }
 };
 
@@ -71,30 +88,30 @@ interface Comment {
   user_name: string;
   user_email: string;
   user_avatar: string;
-  user_id: string;
+  user_id: string | null;
   content: string;
   parent_id: string | null;
   created_at: string;
   likes_count: number;
 }
 
-function getRelativeTime(dateString: string) {
+function getRelativeTime(dateString: string, t: typeof dict["uz"]) {
   const date = new Date(dateString);
   const now = new Date();
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  if (seconds < 60) return "just now";
+  if (seconds < 60) return t.justNow;
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
+  if (minutes < 60) return `${minutes}${t.mAgo}`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
+  if (hours < 24) return `${hours}${t.hAgo}`;
   const days = Math.floor(hours / 24);
-  if (days === 1) return "yesterday";
-  if (days < 7) return `${days}d ago`;
-  if (days < 30) return "last week";
+  if (days === 1) return t.yesterday;
+  if (days < 7) return `${days}${t.dAgo}`;
+  if (days < 30) return t.lastWeek;
   const months = Math.floor(days / 30);
-  if (months < 12) return `${months}mo ago`;
-  return "last year";
+  if (months < 12) return `${months}${t.moAgo}`;
+  return t.lastYear;
 }
 
 export default function CommentsSection({ postSlug }: { postSlug: string }) {
@@ -104,8 +121,7 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
   const [user, setUser] = useState<User | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
-  const [replyContent, setReplyContent] = useState("");
+  const [guestName, setGuestName] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editContent, setEditContent] = useState("");
   const [likedComments, setLikedComments] = useState<{ [key: string]: boolean }>({});
@@ -176,9 +192,9 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
     };
   }, [postSlug, fetchCommentsAndLikes, user]);
 
-  const signInWithProvider = async (provider: "google" | "github") => {
+  const signInWithGithub = async () => {
     await supabase.auth.signInWithOAuth({
-      provider,
+      provider: "github",
       options: {
         redirectTo: window.location.href,
       },
@@ -191,30 +207,34 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
     setLikedComments({});
   };
 
-  const handleAddComment = async (e: React.FormEvent, parentId: string | null = null) => {
+  const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    const content = parentId ? replyContent : newComment;
-    if (!content.trim() || !user) return;
+    if (!newComment.trim()) return;
+
+    const nameToUse = user 
+      ? (user.user_metadata?.full_name || user.email?.split("@")[0] || "User")
+      : (guestName.trim() || t.guestBadge);
+
+    const avatarToUse = user
+      ? (user.user_metadata?.avatar_url || "https://github.com/shadcn.png")
+      : `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(nameToUse)}`;
 
     const { error } = await supabase.from("comments").insert([
       {
         post_slug: postSlug,
-        user_id: user.id,
-        user_email: user.email || "",
-        user_name: user.user_metadata?.full_name || user.email?.split("@")[0] || "User",
-        user_avatar: user.user_metadata?.avatar_url || "https://github.com/shadcn.png",
-        content: content.trim(),
-        parent_id: parentId,
+        user_id: user ? user.id : null,
+        user_email: user ? (user.email || "") : "",
+        user_name: nameToUse,
+        user_avatar: avatarToUse,
+        content: newComment.trim(),
+        parent_id: null,
       },
     ]);
 
     if (!error) {
-      if (parentId) {
-        setReplyContent("");
-        setReplyingTo(null);
-      } else {
-        setNewComment("");
-      }
+      setNewComment("");
+      if (!user) setGuestName("");
+      fetchCommentsAndLikes(user);
     }
   };
 
@@ -238,23 +258,18 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
   };
 
   const handleLikeComment = async (commentId: string, currentLikes: number) => {
-    if (!user) return;
     const isLiked = likedComments[commentId];
     const newLikes = isLiked ? Math.max(0, currentLikes - 1) : currentLikes + 1;
 
     setLikedComments({ ...likedComments, [commentId]: !isLiked });
     setComments(comments.map(c => c.id === commentId ? { ...c, likes_count: newLikes } : c));
 
-    if (isLiked) {
-      await supabase
-        .from("comment_likes")
-        .delete()
-        .eq("comment_id", commentId)
-        .eq("user_id", user.id);
-    } else {
-      await supabase
-        .from("comment_likes")
-        .insert([{ comment_id: commentId, user_id: user.id }]);
+    if (user) {
+      if (isLiked) {
+        await supabase.from("comment_likes").delete().eq("comment_id", commentId).eq("user_id", user.id);
+      } else {
+        await supabase.from("comment_likes").insert([{ comment_id: commentId, user_id: user.id }]);
+      }
     }
 
     await supabase.from("comments").update({ likes_count: newLikes }).eq("id", commentId);
@@ -307,37 +322,47 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <button onClick={() => signInWithProvider("google")} className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 text-xs font-medium hover:border-emerald-500 transition-all cursor-pointer">
-                <FcGoogle className="w-4 h-4" /> {t.loginGoogle}
-              </button>
-              <button onClick={() => signInWithProvider("github")} className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-neutral-900 text-white border border-neutral-700 text-xs font-medium hover:border-emerald-500 transition-all cursor-pointer">
-                <FiGithub className="w-4 h-4" /> {t.loginGithub}
-              </button>
-            </div>
+            <button onClick={signInWithGithub} className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-neutral-900 text-white border border-neutral-700 text-xs font-medium hover:border-emerald-500 transition-all cursor-pointer">
+              <FiGithub className="w-4 h-4" /> {t.loginGithub}
+            </button>
           )}
         </div>
       </div>
 
-      {user ? (
-        <form onSubmit={(e) => handleAddComment(e, null)} className="space-y-3">
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder={t.placeholder}
-            className="w-full p-4 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-sm focus:outline-none focus:border-emerald-500 transition-colors resize-none h-24 text-neutral-900 dark:text-neutral-100"
-          />
-          <div className="flex justify-end">
+      <form onSubmit={handleAddComment} className="space-y-3 p-4 rounded-2xl bg-white dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800">
+        {!user && (
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-500">
+              <FiUser className="w-4 h-4" />
+            </div>
+            <input
+              type="text"
+              value={guestName}
+              onChange={(e) => setGuestName(e.target.value)}
+              placeholder={t.guestPlaceholder}
+              className="w-full sm:w-72 px-3 py-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-xs focus:outline-none focus:border-emerald-500 text-neutral-900 dark:text-neutral-100"
+            />
+          </div>
+        )}
+        <textarea
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder={t.placeholder}
+          className="w-full p-4 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-sm focus:outline-none focus:border-emerald-500 transition-colors resize-none h-24 text-neutral-900 dark:text-neutral-100"
+        />
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          {!user && (
+            <span className="text-[11px] text-neutral-500 font-mono">
+              {t.guestTip}
+            </span>
+          )}
+          <div className="flex justify-end ml-auto">
             <button type="submit" className="px-5 py-2 rounded-xl bg-emerald-500 text-black font-semibold text-xs hover:bg-emerald-400 transition-colors cursor-pointer">
               {t.post}
             </button>
           </div>
-        </form>
-      ) : (
-        <div className="p-4 rounded-xl bg-neutral-100 dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-800 text-center text-xs text-neutral-500">
-          {t.pleaseLogin}
         </div>
-      )}
+      </form>
 
       <div className="space-y-4">
         {comments.map((comment) => (
@@ -349,24 +374,28 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
                   alt="Avatar" 
                   width={32} 
                   height={32} 
-                  className="rounded-full" 
+                  className="rounded-full border border-neutral-700" 
                 />
                 <div>
                   <div className="flex items-center gap-2">
                     <h4 className="text-sm font-bold text-neutral-900 dark:text-white">{comment.user_name}</h4>
-                    {isAuthor(comment.user_email) && (
+                    {comment.user_email && isAuthor(comment.user_email) ? (
                       <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-emerald-500/10 text-emerald-500 rounded-md border border-emerald-500/20">
                         {t.author}
                       </span>
-                    )}
+                    ) : !comment.user_id ? (
+                      <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-neutral-500/10 text-neutral-400 rounded-md border border-neutral-500/20">
+                        {t.guestBadge}
+                      </span>
+                    ) : null}
                   </div>
                   <span className="text-[10px] text-neutral-500 font-mono">
-                    {getRelativeTime(comment.created_at)}
+                    {getRelativeTime(comment.created_at, t)}
                   </span>
                 </div>
               </div>
 
-              {user && user.id === comment.user_id && (
+              {user && comment.user_id === user.id && (
                 <div className="flex items-center gap-2 text-neutral-400">
                   <button onClick={() => { setEditingId(comment.id); setEditContent(comment.content); }} className="hover:text-emerald-500 transition-colors cursor-pointer" title={t.edit}>
                     <FiEdit2 className="w-3.5 h-3.5" />
@@ -399,27 +428,7 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
                 <FiHeart className={`w-3.5 h-3.5 ${likedComments[comment.id] ? "fill-current text-emerald-500" : ""}`} />
                 <span>{comment.likes_count}</span>
               </button>
-              {user && (
-                <button onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)} className="hover:text-emerald-500 transition-colors cursor-pointer">
-                  {t.reply}
-                </button>
-              )}
             </div>
-
-            {replyingTo === comment.id && (
-              <div className="mt-3 pl-4 border-l-2 border-emerald-500/50 space-y-2">
-                <textarea
-                  value={replyContent}
-                  onChange={(e) => setReplyContent(e.target.value)}
-                  placeholder={t.replyPlaceholder}
-                  className="w-full p-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs border border-neutral-700 focus:outline-none text-neutral-900 dark:text-neutral-100"
-                />
-                <div className="gap-2 flex justify-end">
-                  <button onClick={() => setReplyingTo(null)} className="px-3 py-1 rounded bg-neutral-700 text-white text-xs cursor-pointer">{t.cancel}</button>
-                  <button onClick={(e) => handleAddComment(e, comment.id)} className="px-3 py-1 rounded bg-emerald-500 text-black text-xs font-semibold cursor-pointer">{t.send}</button>
-                </div>
-              </div>
-            )}
           </div>
         ))}
       </div>
