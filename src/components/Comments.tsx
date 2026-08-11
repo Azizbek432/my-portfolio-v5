@@ -57,8 +57,7 @@ export default function Comments({ postSlug }: { postSlug: string }) {
     if (!error) {
       setContent("");
       setReplyTo(null);
-      
-      // Izoh qo'shilgach qayta yuklash
+
       const { data } = await supabase
         .from("comments")
         .select("*")

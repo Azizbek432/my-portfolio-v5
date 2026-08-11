@@ -139,7 +139,6 @@ export default function CommentsSection({ postSlug }: { postSlug: string }) {
   const [newComment, setNewComment] = useState("");
   const [guestName, setGuestName] = useState("");
   
-  // Reply va Collapse holatlari
   const [replyingToId, setReplyingToId] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState("");
   const [collapsedReplies, setCollapsedReplies] = useState<{ [key: string]: boolean }>({});
