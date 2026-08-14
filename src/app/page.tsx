@@ -13,7 +13,8 @@ import {
   FiTerminal, 
   FiLayers, 
   FiCpu, 
-  FiCompass 
+  FiCompass,
+  FiDownload
 } from "react-icons/fi";
 import { FaXTwitter } from "react-icons/fa6"; 
 import { useLanguage } from "@/context/LanguageContext";
@@ -36,7 +37,8 @@ export default function HomePage() {
       ctaTitle: "Birgalikda loyiha yaratamizmi?",
       ctaDesc: "G'oyangizni zamonaviy web-ilovaga aylantiramiz. Bog'lanish uchun ijtimoiy tarmoqlardan yozishingiz mumkin!",
       ctaBtn: "Bog'lanish",
-      moreAbout: "Men haqimda"
+      moreAbout: "Men haqimda",
+      downloadResume: "Resumeni yuklab olish"
     },
     EN: {
       statusBadge: "Currently open for opportunities",
@@ -49,7 +51,8 @@ export default function HomePage() {
       ctaTitle: "Have a project or want to collaborate?",
       ctaDesc: "Let's turn your idea into a professional web application together.",
       ctaBtn: "Get in Touch",
-      moreAbout: "More about me"
+      moreAbout: "More about me",
+      downloadResume: "Download Resume"
     },
     RU: {
       statusBadge: "Открыт к новым проектам",
@@ -62,7 +65,8 @@ export default function HomePage() {
       ctaTitle: "Есть проект или хотите сотрудничать?",
       ctaDesc: "Давайте вместе превратим вашу идею в профессиональное веб-приложение!",
       ctaBtn: "Связаться",
-      moreAbout: "Обо мне"
+      moreAbout: "Обо мне",
+      downloadResume: "Скачать резюме"
     }
   };
 
@@ -118,6 +122,17 @@ export default function HomePage() {
             >
               <span>{currentExtra.moreAbout}</span>
             </Link>
+
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Azizbek_Abdullayev_Resume.pdf"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-5 py-2.5 rounded-full transition-all shadow-md active:scale-95"
+            >
+              <FiDownload className="w-4 h-4" />
+              <span>{currentExtra.downloadResume}</span>
+            </a>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 pt-2">
