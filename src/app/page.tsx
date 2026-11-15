@@ -110,7 +110,7 @@ export default function HomePage() {
     },
     {
       name: "Email",
-      href: "mailto:azizbekabdullayev3400@gmail.com",
+      href: "mailto:@azizbekabdullayev3400@gmail.com",
       icon: <FiMail className="w-4 h-4" />,
     },
   ];
