@@ -2,28 +2,29 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { 
-  FiArrowRight, 
-  FiGithub, 
-  FiLinkedin, 
-  FiSend, 
-  FiMail, 
-  FiYoutube, 
-  FiCode, 
-  FiTerminal, 
-  FiLayers, 
-  FiCpu, 
+import {
+  FiArrowRight,
+  FiGithub,
+  FiLinkedin,
+  FiSend,
+  FiMail,
+  FiYoutube,
+  FiCode,
+  FiTerminal,
+  FiLayers,
+  FiCpu,
   FiCompass,
-  FiDownload
+  FiDownload,
 } from "react-icons/fi";
-import { FaXTwitter } from "react-icons/fa6"; 
+import { FaXTwitter } from "react-icons/fa6";
 import { useLanguage } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
   const { lang } = useLanguage();
-  const t = translations[lang].hero;
+  const safeLang = (lang?.toUpperCase() as "UZ" | "EN" | "RU") || "UZ";
+  const t = translations[safeLang]?.hero ?? translations.UZ.hero;
 
   const extraTexts = {
     UZ: {
@@ -31,54 +32,87 @@ export default function HomePage() {
       subtitle: "FULL-STACK DEVELOPER · C++ & WEB ECOSYSTEMS",
       focusTitle: "Nima bilan shug'ullanaman?",
       fullstackTitle: "Full-Stack Arxitektura",
-      fullstackDesc: "Frontend va backend tizimlarini zamonaviy, xavfsiz va tezkor arxitekturada qurish.",
+      fullstackDesc:
+        "Frontend va backend tizimlarini zamonaviy, xavfsiz va tezkor arxitekturada qurish.",
       streamTitle: "Live Kodlash va Ta'lim",
-      streamDesc: "YouTube orqali jonli efirlar, C++ o'yin dasturlash va texnologik bilimlar ulashish.",
+      streamDesc:
+        "YouTube orqali jonli efirlar, C++ o'yin dasturlash va texnologik bilimlar ulashish.",
       ctaTitle: "Birgalikda loyiha yaratamizmi?",
-      ctaDesc: "G'oyangizni zamonaviy web-ilovaga aylantiramiz. Bog'lanish uchun ijtimoiy tarmoqlardan yozishingiz mumkin!",
+      ctaDesc:
+        "G'oyangizni zamonaviy web-ilovaga aylantiramiz. Bog'lanish uchun ijtimoiy tarmoqlardan yozishingiz mumkin!",
       ctaBtn: "Bog'lanish",
       moreAbout: "Men haqimda",
-      downloadResume: "Resumeni yuklab olish"
+      downloadResume: "Rezyumeni yuklab olish",
     },
     EN: {
       statusBadge: "Currently open for opportunities",
       subtitle: "FULL-STACK DEVELOPER · C++ & WEB ECOSYSTEMS",
       focusTitle: "What I Focus On",
       fullstackTitle: "Full-Stack Architecture",
-      fullstackDesc: "Building secure, high-performance web and backend systems meeting modern standards.",
+      fullstackDesc:
+        "Building secure, high-performance web and backend systems meeting modern standards.",
       streamTitle: "Live Coding & Education",
-      streamDesc: "Broadcasting live coding sessions on YouTube, C++ game dev and engineering insights.",
+      streamDesc:
+        "Broadcasting live coding sessions on YouTube, C++ game dev and engineering insights.",
       ctaTitle: "Have a project or want to collaborate?",
-      ctaDesc: "Let's turn your idea into a professional web application together.",
+      ctaDesc:
+        "Let's turn your idea into a professional web application together.",
       ctaBtn: "Get in Touch",
       moreAbout: "More about me",
-      downloadResume: "Download Resume"
+      downloadResume: "Download Resume",
     },
     RU: {
       statusBadge: "Открыт к новым проектам",
       subtitle: "FULL-STACK DEVELOPER · C++ & WEB ECOSYSTEMS",
       focusTitle: "Мои направления",
       fullstackTitle: "Full-Stack Архитектура",
-      fullstackDesc: "Создание безопасных и высокопроизводительных веб и бэкенд систем по современным стандартам.",
+      fullstackDesc:
+        "Создание безопасных и высокопроизводительных веб и бэкенд систем по современным стандартам.",
       streamTitle: "Лайв-кодинг и Обучение",
-      streamDesc: "Проведение стримов на YouTube, разработка игр на C++ и обмен опытом.",
+      streamDesc:
+        "Проведение стримов на YouTube, разработка игр на C++ и обмен опытом.",
       ctaTitle: "Есть проект или хотите сотрудничать?",
-      ctaDesc: "Давайте вместе превратим вашу идею в профессиональное веб-приложение!",
+      ctaDesc:
+        "Давайте вместе превратим вашу идею в профессиональное веб-приложение!",
       ctaBtn: "Связаться",
       moreAbout: "Обо мне",
-      downloadResume: "Скачать резюме"
-    }
+      downloadResume: "Скачать резюме",
+    },
   };
 
-  const currentExtra = extraTexts[lang];
+  const currentExtra = extraTexts[safeLang];
 
   const socialLinks = [
-    { name: "GitHub", href: "https://github.com/Azizbek432", icon: <FiGithub className="w-4 h-4" /> },
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/azizbek-abdullayev-future-full-stack-developer/", icon: <FiLinkedin className="w-4 h-4" /> },
-    { name: "X", href: "https://x.com/AzizbekAbd5902", icon: <FaXTwitter className="w-4 h-4" /> },
-    { name: "YouTube", href: "https://www.youtube.com/@Azizbek_Abdullayev__2026", icon: <FiYoutube className="w-4 h-4" /> },
-    { name: "Telegram", href: "https://t.me/Azizbek_Abdullayev09", icon: <FiSend className="w-4 h-4" /> },
-    { name: "Email", href: "mailto:contact@azizbekabdullayev3500@gmail.com", icon: <FiMail className="w-4 h-4" /> },
+    {
+      name: "GitHub",
+      href: "https://github.com/Azizbek432",
+      icon: <FiGithub className="w-4 h-4" />,
+    },
+    {
+      name: "LinkedIn",
+      href: "https://www.linkedin.com/in/azizbek-abdullayev-future-full-stack-developer/",
+      icon: <FiLinkedin className="w-4 h-4" />,
+    },
+    {
+      name: "X",
+      href: "https://x.com/Azizbek__dev",
+      icon: <FaXTwitter className="w-4 h-4" />,
+    },
+    {
+      name: "YouTube",
+      href: "https://www.youtube.com/@AzizbekAbdullayev-2026",
+      icon: <FiYoutube className="w-4 h-4" />,
+    },
+    {
+      name: "Telegram",
+      href: "https://t.me/Azizbek_Abdullayev09",
+      icon: <FiSend className="w-4 h-4" />,
+    },
+    {
+      name: "Email",
+      href: "mailto:azizbekabdullayev3400@gmail.com",
+      icon: <FiMail className="w-4 h-4" />,
+    },
   ];
 
   return (
@@ -87,17 +121,28 @@ export default function HomePage() {
       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-emerald-500/10 blur-[130px] rounded-full pointer-events-none" />
 
       <div className="max-w-3xl mx-auto space-y-12 relative z-10 mb-20">
-        
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <span className="inline-flex items-center gap-2 bg-white dark:bg-neutral-900/90 border border-neutral-200 dark:border-neutral-800/90 text-neutral-700 dark:text-neutral-300 text-xs font-mono px-3 py-1.5 rounded-full shadow-sm backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
             {currentExtra.statusBadge}
           </span>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="space-y-4"
+        >
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight">
-            I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 via-neutral-700 to-emerald-600 dark:from-white dark:via-neutral-200 dark:to-emerald-400">Azizbek</span>
+            I&apos;m{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-900 via-neutral-700 to-emerald-600 dark:from-white dark:via-neutral-200 dark:to-emerald-400">
+              Azizbek
+            </span>
           </h1>
           <p className="text-xs sm:text-sm font-mono tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold uppercase">
             {currentExtra.subtitle}
@@ -107,7 +152,12 @@ export default function HomePage() {
           </p>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="space-y-6 pt-2">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="space-y-6 pt-2"
+        >
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/blog"
@@ -124,7 +174,7 @@ export default function HomePage() {
             </Link>
 
             <a
-              href="/resume.pdf"
+              href="/azizbek-resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               download="Azizbek_Abdullayev_Resume.pdf"
@@ -136,9 +186,9 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2 pt-2">
-            {socialLinks.map((item, idx) => (
+            {socialLinks.map((item) => (
               <a
-                key={idx}
+                key={item.name}
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
@@ -152,32 +202,49 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4"
+        >
           <div className="p-4 bg-white dark:bg-neutral-900/30 border border-neutral-200 dark:border-neutral-800/60 rounded-xl space-y-1.5 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors shadow-sm">
             <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] font-bold">
               <FiCode className="w-3.5 h-3.5" /> CORE STACK
             </div>
-            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Next.js 15, TypeScript, NestJS, Tailwind</p>
+            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+              Next.js 15, TypeScript, NestJS, Tailwind
+            </p>
           </div>
 
           <div className="p-4 bg-white dark:bg-neutral-900/30 border border-neutral-200 dark:border-neutral-800/60 rounded-xl space-y-1.5 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors shadow-sm">
             <div className="flex items-center gap-2 text-teal-600 dark:text-teal-400 font-mono text-[11px] font-bold">
               <FiTerminal className="w-3.5 h-3.5" /> SYSTEMS & ALGO
             </div>
-            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">C++ Graphics & Native Systems</p>
+            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+              C++ Graphics & Native Systems
+            </p>
           </div>
 
           <div className="p-4 bg-white dark:bg-neutral-900/30 border border-neutral-200 dark:border-neutral-800/60 rounded-xl space-y-1.5 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors shadow-sm">
             <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] font-bold">
               <FiYoutube className="w-3.5 h-3.5" /> BROADCASTING
             </div>
-            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Live Coding Streams & Tech Content</p>
+            <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+              Live Coding Streams & Tech Content
+            </p>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="space-y-4 pt-6 border-t border-neutral-200 dark:border-neutral-800/60">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="space-y-4 pt-6 border-t border-neutral-200 dark:border-neutral-800/60"
+        >
           <h2 className="text-lg font-bold text-neutral-900 dark:text-white tracking-tight flex items-center gap-2">
-            <FiLayers className="text-emerald-600 dark:text-emerald-400" /> {currentExtra.focusTitle}
+            <FiLayers className="text-emerald-600 dark:text-emerald-400" />{" "}
+            {currentExtra.focusTitle}
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -185,7 +252,9 @@ export default function HomePage() {
               <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <FiCpu className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">{currentExtra.fullstackTitle}</h3>
+              <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">
+                {currentExtra.fullstackTitle}
+              </h3>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 {currentExtra.fullstackDesc}
               </p>
@@ -195,7 +264,9 @@ export default function HomePage() {
               <div className="w-9 h-9 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400">
                 <FiCompass className="w-4 h-4" />
               </div>
-              <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">{currentExtra.streamTitle}</h3>
+              <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">
+                {currentExtra.streamTitle}
+              </h3>
               <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 {currentExtra.streamDesc}
               </p>
@@ -203,10 +274,19 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.5 }} className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-100/50 via-white to-neutral-100 dark:from-emerald-950/30 dark:via-neutral-900/60 dark:to-neutral-900/90 border border-emerald-200 dark:border-emerald-800/30 flex flex-col sm:flex-row items-center justify-between gap-5 relative overflow-hidden shadow-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-emerald-100/50 via-white to-neutral-100 dark:from-emerald-950/30 dark:via-neutral-900/60 dark:to-neutral-900/90 border border-emerald-200 dark:border-emerald-800/30 flex flex-col sm:flex-row items-center justify-between gap-5 relative overflow-hidden shadow-sm"
+        >
           <div className="space-y-1 text-center sm:text-left z-10">
-            <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{currentExtra.ctaTitle}</h3>
-            <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-md">{currentExtra.ctaDesc}</p>
+            <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
+              {currentExtra.ctaTitle}
+            </h3>
+            <p className="text-xs text-neutral-600 dark:text-neutral-400 max-w-md">
+              {currentExtra.ctaDesc}
+            </p>
           </div>
           <Link
             href="/contact"
@@ -215,7 +295,6 @@ export default function HomePage() {
             {currentExtra.ctaBtn}
           </Link>
         </motion.div>
-
       </div>
 
       <Footer />
